@@ -113,6 +113,12 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Edson Pedroso',
     imageSrc: '/9.png',
   },
+  {
+    id: 10,
+    url: 'https://nillreis.vercel.app/',
+    title: 'Nill Reis Cantor',
+    imageSrc: '/10.png',
+  },
 ];
 
 export const quotes: string[] = [
