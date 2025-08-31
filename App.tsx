@@ -8,12 +8,17 @@ import Footer from './components/Footer';
 import WhatsAppModal from './components/WhatsAppModal';
 import InstagramModal from './components/InstagramModal';
 import PortfolioModal from './components/PortfolioModal';
+import ProjectInquiryModal from './components/ProjectInquiryModal';
 import { links } from './constants';
 
 const App: React.FC = () => {
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
   const [isInstagramModalOpen, setIsInstagramModalOpen] = useState(false);
   const [isPortfolioModalOpen, setIsPortfolioModalOpen] = useState(false);
+  const [projectInquiry, setProjectInquiry] = useState<{ isOpen: boolean; title: string | null }>({
+    isOpen: false,
+    title: null,
+  });
 
   const handleOpenWhatsAppModal = () => setIsWhatsAppModalOpen(true);
   const handleCloseWhatsAppModal = () => setIsWhatsAppModalOpen(false);
@@ -23,6 +28,13 @@ const App: React.FC = () => {
 
   const handleOpenPortfolioModal = () => setIsPortfolioModalOpen(true);
   const handleClosePortfolioModal = () => setIsPortfolioModalOpen(false);
+
+  const handleOpenProjectInquiryModal = (title: string) => {
+    setProjectInquiry({ isOpen: true, title });
+  };
+  const handleCloseProjectInquiryModal = () => {
+    setProjectInquiry({ isOpen: false, title: null });
+  };
 
   const getClickHandler = (text: string) => {
     switch (text) {
@@ -61,7 +73,16 @@ const App: React.FC = () => {
 
       <WhatsAppModal isOpen={isWhatsAppModalOpen} onClose={handleCloseWhatsAppModal} />
       <InstagramModal isOpen={isInstagramModalOpen} onClose={handleCloseInstagramModal} />
-      <PortfolioModal isOpen={isPortfolioModalOpen} onClose={handleClosePortfolioModal} />
+      <PortfolioModal 
+        isOpen={isPortfolioModalOpen} 
+        onClose={handleClosePortfolioModal}
+        onInquiryClick={handleOpenProjectInquiryModal}
+      />
+      <ProjectInquiryModal
+        isOpen={projectInquiry.isOpen}
+        onClose={handleCloseProjectInquiryModal}
+        projectTitle={projectInquiry.title || ''}
+      />
     </div>
   );
 };
