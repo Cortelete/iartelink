@@ -107,6 +107,12 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Nutricionista Biedermann',
     imageSrc: '/8.png',
   },
+  {
+    id: 9,
+    url: 'https://edsonbio.vercel.app/',
+    title: 'Edson Pedroso',
+    imageSrc: '/9.png',
+  },
 ];
 
 export const quotes: string[] = [
