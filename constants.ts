@@ -95,6 +95,18 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Caramella Chocolates',
     imageSrc: '/6.png',
   },
+  {
+    id: 7,
+    url: 'https://joybio.vercel.app/',
+    title: 'Joyci Almeida',
+    imageSrc: '/7.png',
+  },
+  {
+    id: 8,
+    url: 'https://nutrisyr.vercel.app/',
+    title: 'Nutricionista Biedermann',
+    imageSrc: '/8.png',
+  },
 ];
 
 export const quotes: string[] = [
