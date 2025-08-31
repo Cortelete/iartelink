@@ -1,4 +1,4 @@
-import type { SocialLink } from './types';
+import type { SocialLink, PortfolioItem } from './types';
 import WebsiteIcon from './components/icons/WebsiteIcon';
 import InstagramIcon from './components/icons/InstagramIcon';
 import TikTokIcon from './components/icons/TikTokIcon';
@@ -55,6 +55,45 @@ export const links: SocialLink[] = [
     text: 'LinkedIn',
     Icon: LinkedInIcon,
     brandColor: 'hover:shadow-[#0A66C2]',
+  },
+];
+
+export const portfolioItems: PortfolioItem[] = [
+  {
+    id: 1,
+    url: 'https://tabacabeca.vercel.app/',
+    title: 'Tabacabeça',
+    imageSrc: '/1.png',
+  },
+  {
+    id: 2,
+    url: 'https://lkruppa.vercel.app/',
+    title: 'Luiza Kruppa',
+    imageSrc: '/2.png',
+  },
+  {
+    id: 3,
+    url: 'https://luxbio.vercel.app/',
+    title: 'Luxury Joyci Almeida',
+    imageSrc: '/3.png',
+  },
+  {
+    id: 4,
+    url: 'https://comandoauto.vercel.app/',
+    title: 'Comando AutoService',
+    imageSrc: '/4.png',
+  },
+  {
+    id: 5,
+    url: 'https://gustabio.vercel.app/',
+    title: 'Gusta',
+    imageSrc: '/5.png',
+  },
+  {
+    id: 6,
+    url: 'https://caramellabio.vercel.app/',
+    title: 'Caramella Chocolates',
+    imageSrc: '/6.png',
   },
 ];
 

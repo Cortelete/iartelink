@@ -1,5 +1,5 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
+import { portfolioItems } from '../constants';
 
 interface PortfolioModalProps {
   isOpen: boolean;
@@ -8,56 +8,29 @@ interface PortfolioModalProps {
 
 const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [imagePaths, setImagePaths] = useState<string[]>([]);
-  const [isCheckingImages, setIsCheckingImages] = useState(true);
   const [isImageLoading, setIsImageLoading] = useState(true);
 
+  // Reset index when modal opens
   useEffect(() => {
     if (isOpen) {
-      const checkImages = async () => {
-        setIsCheckingImages(true);
-        const availablePaths: string[] = [];
-        // Verifica sequencialmente por até 20 imagens. Para ao não encontrar uma.
-        for (let i = 1; i <= 20; i++) {
-          const path = `/${i}.png`;
-          try {
-            const response = await fetch(path, { method: 'HEAD' });
-            if (response.ok) {
-              availablePaths.push(path);
-            } else {
-              break; // Para a verificação se uma imagem não for encontrada
-            }
-          } catch (error) {
-            console.error('Erro ao verificar a imagem:', error);
-            break;
-          }
-        }
-        setImagePaths(availablePaths);
-        setCurrentIndex(0);
-        setIsCheckingImages(false);
-      };
-      
-      checkImages();
-    } else {
-        // Reseta o estado ao fechar
-        setImagePaths([]);
-        setIsCheckingImages(true);
+      setCurrentIndex(0);
+      setIsImageLoading(true);
     }
   }, [isOpen]);
 
-  const totalImages = imagePaths.length;
+  const totalItems = portfolioItems.length;
 
   const goToPrevious = useCallback(() => {
-    if (totalImages === 0) return;
+    if (totalItems === 0) return;
     setIsImageLoading(true);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + totalImages) % totalImages);
-  }, [totalImages]);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + totalItems) % totalItems);
+  }, [totalItems]);
 
   const goToNext = useCallback(() => {
-    if (totalImages === 0) return;
+    if (totalItems === 0) return;
     setIsImageLoading(true);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalImages);
-  }, [totalImages]);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalItems);
+  }, [totalItems]);
   
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -79,42 +52,49 @@ const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const renderCarouselContent = () => {
-    if (isCheckingImages) {
+    if (totalItems === 0) {
       return (
-        <div className="w-full aspect-square flex items-center justify-center text-white/50">
-          Verificando portfólio...
+        <div className="w-full aspect-square flex items-center justify-center text-white/50 text-center p-4">
+          Nenhum projeto no portfólio no momento.
         </div>
       );
     }
 
-    if (totalImages === 0) {
-      return (
-        <div className="w-full aspect-square flex items-center justify-center text-white/50 text-center p-4">
-          O portfólio está vazio no momento. Adicione imagens como `1.png`, `2.png` etc. na pasta `public`.
-        </div>
-      );
-    }
+    const currentItem = portfolioItems[currentIndex];
 
     return (
       <>
-        <div className="relative w-full aspect-square overflow-hidden rounded-lg bg-black">
+        <div className="relative w-full aspect-square overflow-hidden rounded-lg bg-black group">
           {isImageLoading && (
-            <div className="absolute inset-0 flex items-center justify-center text-white/50">
+            <div className="absolute inset-0 flex items-center justify-center text-white/50 z-10">
               Carregando...
             </div>
           )}
-          <img
-            key={currentIndex}
-            src={imagePaths[currentIndex]}
-            alt={`Imagem do portfólio ${currentIndex + 1} de ${totalImages}`}
-            className={`w-full h-full object-contain transition-opacity duration-300 ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
-            onLoad={() => setIsImageLoading(false)}
-            onError={() => setIsImageLoading(false)}
-          />
+          <a
+            href={currentItem.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Ver projeto ${currentItem.title}`}
+            className="w-full h-full block"
+          >
+            <img
+              key={currentIndex}
+              src={currentItem.imageSrc}
+              alt={currentItem.title}
+              className={`w-full h-full object-contain transition-opacity duration-300 ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
+              onLoad={() => setIsImageLoading(false)}
+              onError={() => setIsImageLoading(false)}
+            />
+            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent transition-opacity opacity-0 group-hover:opacity-100 flex items-end">
+                <h3 className="text-lg font-bold text-white drop-shadow-md">
+                    {currentItem.title}
+                </h3>
+            </div>
+          </a>
           
           <button 
             onClick={goToPrevious} 
-            className="absolute top-1/2 left-2 -translate-y-1/2 p-2 bg-black/40 rounded-full text-white hover:bg-black/70 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="absolute top-1/2 left-2 -translate-y-1/2 p-2 bg-black/40 rounded-full text-white hover:bg-black/70 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 z-20"
             aria-label="Imagem anterior"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -122,15 +102,16 @@ const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose }) => {
 
           <button 
             onClick={goToNext} 
-            className="absolute top-1/2 right-2 -translate-y-1/2 p-2 bg-black/40 rounded-full text-white hover:bg-black/70 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="absolute top-1/2 right-2 -translate-y-1/2 p-2 bg-black/40 rounded-full text-white hover:bg-black/70 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 z-20"
             aria-label="Próxima imagem"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
         </div>
 
-        <p className="mt-4 text-sm text-gray-400" aria-live="polite">
-          {currentIndex + 1} / {totalImages}
+        <p className="mt-4 text-sm text-center text-gray-400" aria-live="polite">
+          {currentItem.title}
+          <span className="text-gray-500"> — {currentIndex + 1} / {totalItems}</span>
         </p>
       </>
     );
