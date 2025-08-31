@@ -1,12 +1,14 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { portfolioItems } from '../constants';
 
 interface PortfolioModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onInquiryClick: (title: string) => void;
 }
 
-const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose }) => {
+const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose, onInquiryClick }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isImageLoading, setIsImageLoading] = useState(true);
 
@@ -109,10 +111,19 @@ const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose }) => {
           </button>
         </div>
 
-        <p className="mt-4 text-sm text-center text-gray-400" aria-live="polite">
-          {currentItem.title}
-          <span className="text-gray-500"> — {currentIndex + 1} / {totalItems}</span>
-        </p>
+        <div className="mt-4 w-full flex items-center justify-between gap-2" aria-live="polite">
+          <p className="text-sm text-left text-gray-400 flex-grow truncate" title={currentItem.title}>
+            {currentItem.title}
+            <span className="text-gray-500 hidden sm:inline"> — {currentIndex + 1} / {totalItems}</span>
+          </p>
+          <button 
+            onClick={() => onInquiryClick(currentItem.title)}
+            className="flex-shrink-0 px-3 py-1.5 text-xs font-bold text-black rounded-full bg-gradient-to-r from-purple-400 to-indigo-500 hover:scale-105 transition-transform duration-200 shadow-md shadow-purple-500/20"
+            aria-label={`Solicitar um site como o de ${currentItem.title}`}
+          >
+            Quero um desse
+          </button>
+        </div>
       </>
     );
   };
