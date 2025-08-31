@@ -3,6 +3,7 @@ import WebsiteIcon from './components/icons/WebsiteIcon';
 import InstagramIcon from './components/icons/InstagramIcon';
 import TikTokIcon from './components/icons/TikTokIcon';
 import LinkedInIcon from './components/icons/LinkedInIcon';
+import PortfolioIcon from './components/icons/PortfolioIcon';
 
 export const instagramLinks: SocialLink[] = [
     {
@@ -28,6 +29,12 @@ export const links: SocialLink[] = [
     text: 'InteligenciArte.IA',
     Icon: WebsiteIcon,
     brandColor: 'hover:shadow-[#00ffff]',
+  },
+  {
+    id: 15,
+    text: 'Portfólio',
+    Icon: PortfolioIcon,
+    brandColor: 'hover:shadow-[#a855f7]',
   },
   {
     id: 10,

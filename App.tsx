@@ -7,17 +7,33 @@ import LinkButton from './components/LinkButton';
 import Footer from './components/Footer';
 import WhatsAppModal from './components/WhatsAppModal';
 import InstagramModal from './components/InstagramModal';
+import PortfolioModal from './components/PortfolioModal';
 import { links } from './constants';
 
 const App: React.FC = () => {
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
   const [isInstagramModalOpen, setIsInstagramModalOpen] = useState(false);
+  const [isPortfolioModalOpen, setIsPortfolioModalOpen] = useState(false);
 
   const handleOpenWhatsAppModal = () => setIsWhatsAppModalOpen(true);
   const handleCloseWhatsAppModal = () => setIsWhatsAppModalOpen(false);
   
   const handleOpenInstagramModal = () => setIsInstagramModalOpen(true);
   const handleCloseInstagramModal = () => setIsInstagramModalOpen(false);
+
+  const handleOpenPortfolioModal = () => setIsPortfolioModalOpen(true);
+  const handleClosePortfolioModal = () => setIsPortfolioModalOpen(false);
+
+  const getClickHandler = (text: string) => {
+    switch (text) {
+      case 'Instagram':
+        return handleOpenInstagramModal;
+      case 'Portfólio':
+        return handleOpenPortfolioModal;
+      default:
+        return undefined;
+    }
+  };
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-black flex items-center justify-center p-2 sm:p-4">
@@ -32,7 +48,7 @@ const App: React.FC = () => {
                 <LinkButton
                   key={link.id}
                   href={link.url}
-                  onClick={link.text === 'Instagram' ? handleOpenInstagramModal : undefined}
+                  onClick={getClickHandler(link.text)}
                   text={link.text}
                   Icon={link.Icon}
                   brandColor={link.brandColor}
@@ -45,6 +61,7 @@ const App: React.FC = () => {
 
       <WhatsAppModal isOpen={isWhatsAppModalOpen} onClose={handleCloseWhatsAppModal} />
       <InstagramModal isOpen={isInstagramModalOpen} onClose={handleCloseInstagramModal} />
+      <PortfolioModal isOpen={isPortfolioModalOpen} onClose={handleClosePortfolioModal} />
     </div>
   );
 };
