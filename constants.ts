@@ -119,6 +119,18 @@ export const portfolioItems: PortfolioItem[] = [
     title: 'Nill Reis Cantor',
     imageSrc: '/10.png',
   },
+  {
+    id: 11,
+    url: 'https://modaecia.vercel.app',
+    title: 'Moda&CiaPG',
+    imageSrc: '/11.png',
+  },
+  {
+    id: 12,
+    url: 'https://frutariabenetti.vercel.app',
+    title: 'Frutaria Benetti',
+    imageSrc: '/12.png',
+  },
 ];
 
 export const quotes: string[] = [
