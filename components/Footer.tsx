@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface FooterProps {
@@ -14,7 +13,7 @@ const Footer: React.FC<FooterProps> = ({ onCtaClick }) => {
                    bg-gradient-to-r from-purple-400 via-indigo-500 to-purple-500
                    animate-gradient-x transition-all duration-300 hover:scale-105 hover:-translate-y-1 shadow-lg shadow-purple-500/20"
       >
-        Quer um site incrível como esse? Fale comigo! 🚀
+        Quer um site incrível como esse?
       </button>
       <p className="text-xs sm:text-sm text-purple-200/70">
         Desenvolvido por{' '}
