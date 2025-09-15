@@ -1,3 +1,4 @@
+
 import type { SocialLink, PortfolioItem } from './types';
 import WebsiteIcon from './components/icons/WebsiteIcon';
 import InstagramIcon from './components/icons/InstagramIcon';
@@ -130,6 +131,18 @@ export const portfolioItems: PortfolioItem[] = [
     url: 'https://frutariabenetti.vercel.app',
     title: 'Frutaria Benetti',
     imageSrc: '/12.png',
+  },
+  {
+    id: 13,
+    url: 'https://draisarighetto.vercel.app/',
+    title: 'Dra. Isabelli Righetto',
+    imageSrc: '/13.png',
+  },
+  {
+    id: 14,
+    url: 'https://daranybio.vercel.app/',
+    title: 'Dr. Darany Advogado',
+    imageSrc: '/14.png',
   },
 ];
 
