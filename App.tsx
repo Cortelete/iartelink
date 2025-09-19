@@ -8,19 +8,18 @@ import Footer from './components/Footer';
 import WhatsAppModal from './components/WhatsAppModal';
 import InstagramModal from './components/InstagramModal';
 import PortfolioModal from './components/PortfolioModal';
-import ProjectInquiryModal from './components/ProjectInquiryModal';
+import MinisiteInquiryModal from './components/MinisiteInquiryModal';
 import { links } from './constants';
 
 const App: React.FC = () => {
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
   const [isInstagramModalOpen, setIsInstagramModalOpen] = useState(false);
   const [isPortfolioModalOpen, setIsPortfolioModalOpen] = useState(false);
-  const [projectInquiry, setProjectInquiry] = useState<{ isOpen: boolean; title: string | null }>({
-    isOpen: false,
-    title: null,
-  });
+  const [isMinisiteInquiryModalOpen, setMinisiteInquiryModalOpen] = useState(false);
 
-  const handleOpenWhatsAppModal = () => setIsWhatsAppModalOpen(true);
+  const handleOpenMinisiteInquiryModal = () => setMinisiteInquiryModalOpen(true);
+  const handleCloseMinisiteInquiryModal = () => setMinisiteInquiryModalOpen(false);
+  
   const handleCloseWhatsAppModal = () => setIsWhatsAppModalOpen(false);
   
   const handleOpenInstagramModal = () => setIsInstagramModalOpen(true);
@@ -29,11 +28,9 @@ const App: React.FC = () => {
   const handleOpenPortfolioModal = () => setIsPortfolioModalOpen(true);
   const handleClosePortfolioModal = () => setIsPortfolioModalOpen(false);
 
-  const handleOpenProjectInquiryModal = (title: string) => {
-    setProjectInquiry({ isOpen: true, title });
-  };
-  const handleCloseProjectInquiryModal = () => {
-    setProjectInquiry({ isOpen: false, title: null });
+  const handlePortfolioInquiry = () => {
+    setIsPortfolioModalOpen(false); // Close portfolio modal
+    setMinisiteInquiryModalOpen(true); // Open minisite inquiry modal
   };
 
   const getClickHandler = (text: string) => {
@@ -68,7 +65,7 @@ const App: React.FC = () => {
               ))}
             </div>
         </div>
-        <Footer onCtaClick={handleOpenWhatsAppModal} />
+        <Footer onInquiryClick={handleOpenMinisiteInquiryModal} />
       </main>
 
       <WhatsAppModal isOpen={isWhatsAppModalOpen} onClose={handleCloseWhatsAppModal} />
@@ -76,12 +73,11 @@ const App: React.FC = () => {
       <PortfolioModal 
         isOpen={isPortfolioModalOpen} 
         onClose={handleClosePortfolioModal}
-        onInquiryClick={handleOpenProjectInquiryModal}
+        onInquiryClick={handlePortfolioInquiry}
       />
-      <ProjectInquiryModal
-        isOpen={projectInquiry.isOpen}
-        onClose={handleCloseProjectInquiryModal}
-        projectTitle={projectInquiry.title || ''}
+      <MinisiteInquiryModal 
+        isOpen={isMinisiteInquiryModalOpen}
+        onClose={handleCloseMinisiteInquiryModal}
       />
     </div>
   );

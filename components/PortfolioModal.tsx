@@ -5,7 +5,7 @@ import { portfolioItems } from '../constants';
 interface PortfolioModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onInquiryClick: (title: string) => void;
+  onInquiryClick: () => void;
 }
 
 const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose, onInquiryClick }) => {
@@ -116,7 +116,7 @@ const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose, onInqu
             className="absolute top-1/2 right-2 -translate-y-1/2 p-2 bg-black/40 rounded-full text-white hover:bg-black/70 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 z-20"
             aria-label="Próxima imagem"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
         </div>
 
@@ -135,9 +135,9 @@ const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose, onInqu
             {currentIndex + 1} / {totalItems}
           </p>
           <button 
-            onClick={() => onInquiryClick(currentItem.title)}
+            onClick={onInquiryClick}
             className="flex-shrink-0 px-3 py-1.5 text-xs font-bold text-black rounded-full bg-gradient-to-r from-purple-400 to-indigo-500 hover:scale-105 transition-transform duration-200 shadow-md shadow-purple-500/20"
-            aria-label={`Solicitar um site como o de ${currentItem.title}`}
+            aria-label="Solicitar um Minisite"
           >
             Quero um desse
           </button>
