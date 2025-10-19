@@ -33,7 +33,7 @@ export const links: SocialLink[] = [
   },
   {
     id: 15,
-    text: 'Portfólio',
+    text: 'LinkBio de Clientes',
     Icon: PortfolioIcon,
     brandColor: 'hover:shadow-[#a855f7]',
   },

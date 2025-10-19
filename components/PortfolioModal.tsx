@@ -77,7 +77,7 @@ const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose, onInqu
     if (totalItems === 0) {
       return (
         <div className="w-full aspect-square flex items-center justify-center text-white/50 text-center p-4">
-          Nenhum projeto no portfólio no momento.
+          Nenhum LinkBio no portfólio no momento.
         </div>
       );
     }
@@ -167,7 +167,7 @@ const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose, onInqu
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
 
-          <h2 id="portfolio-title" className="text-xl font-bold text-center text-purple-300 mb-4">Nosso Portfólio</h2>
+          <h2 id="portfolio-title" className="text-xl font-bold text-center text-purple-300 mb-4">LinkBios de Clientes</h2>
           
           {renderCarouselContent()}
         </div>

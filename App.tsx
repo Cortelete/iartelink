@@ -37,7 +37,7 @@ const App: React.FC = () => {
     switch (text) {
       case 'Instagram':
         return handleOpenInstagramModal;
-      case 'Portfólio':
+      case 'LinkBio de Clientes':
         return handleOpenPortfolioModal;
       default:
         return undefined;
