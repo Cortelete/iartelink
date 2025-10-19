@@ -1,6 +1,14 @@
-
 import React, { useState, useEffect, useCallback, Fragment } from 'react';
-import { portfolioItems } from '../constants';
+import { portfolioItems as originalPortfolioItems } from '../constants';
+
+const exampleItem = {
+  id: -1, // Unique ID
+  url: 'https://exemplao.vercel.app/',
+  title: 'Veja o Exemplo na Prática',
+  imageSrc: '/logo.png', // Not used for rendering, but kept for data structure consistency
+};
+
+const portfolioItems = [exampleItem, ...originalPortfolioItems];
 
 interface PortfolioModalProps {
   isOpen: boolean;
@@ -37,7 +45,7 @@ const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose, onInqu
   }, [totalItems]);
   
   const openFullScreen = () => {
-    if (totalItems > 0) {
+    if (totalItems > 0 && currentIndex !== 0) { // Don't open fullscreen for the example
       setIsFullScreen(true);
     }
   }
@@ -86,27 +94,46 @@ const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose, onInqu
 
     return (
       <>
-        <div className="relative w-full aspect-square overflow-hidden rounded-lg bg-black group">
-          {isImageLoading && (
-            <div className="absolute inset-0 flex items-center justify-center text-white/50 z-10">
-              Carregando...
-            </div>
-          )}
-          
-          <img
-            key={currentIndex}
-            src={currentItem.imageSrc}
-            alt={currentItem.title}
-            className={`w-full h-full object-contain transition-opacity duration-300 cursor-pointer ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
-            onLoad={() => setIsImageLoading(false)}
-            onError={() => setIsImageLoading(false)}
-            onClick={openFullScreen}
-          />
+        <div className="relative w-full aspect-square overflow-hidden rounded-lg bg-black/90 group flex items-center justify-center">
+            {currentIndex === 0 ? (
+                <div className="text-center p-6 sm:p-8 flex flex-col items-center justify-center text-white">
+                    <h3 className="text-xl sm:text-2xl font-bold text-purple-300 mb-4">Exemplo Interativo</h3>
+                    <p className="text-indigo-200/90 mb-6 text-sm sm:text-base">
+                        Clique no botão abaixo para ver um minisite de exemplo em ação e explorar todas as funcionalidades.
+                    </p>
+                    <a
+                        href={currentItem.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-bold text-black bg-gradient-to-r from-purple-400 via-indigo-500 to-purple-500 animate-gradient-x transition-all duration-300 hover:scale-105 shadow-lg shadow-purple-500/20"
+                    >
+                        Testar Exemplo Prático
+                    </a>
+                </div>
+            ) : (
+                 <>
+                    {isImageLoading && (
+                        <div className="absolute inset-0 flex items-center justify-center text-white/50 z-10">
+                        Carregando...
+                        </div>
+                    )}
+                    
+                    <img
+                        key={currentIndex}
+                        src={currentItem.imageSrc}
+                        alt={currentItem.title}
+                        className={`w-full h-full object-contain transition-opacity duration-300 cursor-pointer ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
+                        onLoad={() => setIsImageLoading(false)}
+                        onError={() => setIsImageLoading(false)}
+                        onClick={openFullScreen}
+                    />
+                 </>
+            )}
           
           <button 
             onClick={goToPrevious} 
             className="absolute top-1/2 left-2 -translate-y-1/2 p-2 bg-black/40 rounded-full text-white hover:bg-black/70 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 z-20"
-            aria-label="Imagem anterior"
+            aria-label="Item anterior"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
           </button>
@@ -114,7 +141,7 @@ const PortfolioModal: React.FC<PortfolioModalProps> = ({ isOpen, onClose, onInqu
           <button 
             onClick={goToNext} 
             className="absolute top-1/2 right-2 -translate-y-1/2 p-2 bg-black/40 rounded-full text-white hover:bg-black/70 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 z-20"
-            aria-label="Próxima imagem"
+            aria-label="Próximo item"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
