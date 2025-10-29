@@ -3,8 +3,8 @@ import type { SocialLink, PortfolioItem } from './types';
 import WebsiteIcon from './components/icons/WebsiteIcon';
 import InstagramIcon from './components/icons/InstagramIcon';
 import TikTokIcon from './components/icons/TikTokIcon';
-import LinkedInIcon from './components/icons/LinkedInIcon';
 import PortfolioIcon from './components/icons/PortfolioIcon';
+import AlienIcon from './components/icons/AlienIcon';
 
 export const instagramLinks: SocialLink[] = [
     {
@@ -52,10 +52,10 @@ export const links: SocialLink[] = [
   },
   {
     id: 4,
-    url: 'https://www.linkedin.com/in/davicortelete',
-    text: 'LinkedIn',
-    Icon: LinkedInIcon,
-    brandColor: 'hover:shadow-[#0A66C2]',
+    url: 'https://labirintoacustico.vercel.app',
+    text: 'Labirinto Acústico',
+    Icon: AlienIcon,
+    brandColor: 'hover:shadow-[#00ff00]',
   },
 ];
 
